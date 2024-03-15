@@ -1,9 +1,13 @@
 import axios from "axios";
 import { Modal } from "flowbite-react";
 import React, { useState } from "react";
+import BaseURL from "./urlBase";
 
 export default function AgregarProducto({ cargarProductos }) {
+  //declara un estado para abrir un modal y setOpenModal se uda para actualizarlo
   const [openModal, setOpenModal] = useState(false);
+
+  //declara un estado para guardar los datos del formulario y setFormData lo actualiza
   const [formData, setFormData] = useState({
     nombre: "",
     descripcion: "",
@@ -11,14 +15,22 @@ export default function AgregarProducto({ cargarProductos }) {
     cantidad: "",
   });
 
-  const urlBase = "http://localhost:8080/paletas/";
+  //url donde se encuentra el endpoint de mostrar las paletas
+  const urlBase = BaseURL() + "agregar";
 
+  //funcion para agregar un producto haciendo una petición POST al endpoint
   const agregar = async (e) => {
+    //permite evitar que la patiga se recarge al enviar la informacion al endpoint
     e.preventDefault();
+
     try {
-      await axios.post(urlBase + "agregar", formData);
+      //envia al endpoint la información del formulario
+      await axios.post(urlBase, formData);
+      //actualiza el estado de las paletas para mostrar el nuevo producto agregado
       cargarProductos();
+      //oculta el modal
       setOpenModal(false);
+      //actualiza el estado donde se guarda los datos del formulario
       setFormData({
         nombre: "",
         descripcion: "",
@@ -27,11 +39,12 @@ export default function AgregarProducto({ cargarProductos }) {
       });
     } catch (error) {
       console.error(error);
-      // Manejar errores de forma adecuada
     }
   };
 
-  const handleChange = (e) => {
+  //actualiza el estado de los valores del formulario cuando el usuario ingresa nuevos
+  //valores
+  const actualizarEstadoForm = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -76,8 +89,7 @@ export default function AgregarProducto({ cargarProductos }) {
                     id="nombre"
                     type="text"
                     placeholder="Nombre de producto"
-                    value={formData.nombre}
-                    onChange={handleChange}
+                    onChange={actualizarEstadoForm}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     required
                   />
@@ -94,8 +106,7 @@ export default function AgregarProducto({ cargarProductos }) {
                     name="descripcion"
                     rows="4"
                     placeholder="Descripción de producto"
-                    value={formData.descripcion}
-                    onChange={handleChange}
+                    onChange={actualizarEstadoForm}
                     className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   ></textarea>
                 </div>
@@ -112,8 +123,7 @@ export default function AgregarProducto({ cargarProductos }) {
                     type="number"
                     placeholder="Precio"
                     min={2}
-                    value={formData.precio}
-                    onChange={handleChange}
+                    onChange={actualizarEstadoForm}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     required
                   />
@@ -131,8 +141,7 @@ export default function AgregarProducto({ cargarProductos }) {
                     type="number"
                     placeholder="Cantidad"
                     min={2}
-                    value={formData.cantidad}
-                    onChange={handleChange}
+                    onChange={actualizarEstadoForm}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     required
                   />
