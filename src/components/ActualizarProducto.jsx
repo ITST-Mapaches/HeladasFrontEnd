@@ -160,7 +160,7 @@ export default function ActualizarProducto({ idPaleta, cargarProductos }) {
                   />
                 </div>
               </div>
-              <div className="flex">
+              <div className="flex justify-around">
                 <button
                   type="submit"
                   className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 active:scale-95"
@@ -169,7 +169,7 @@ export default function ActualizarProducto({ idPaleta, cargarProductos }) {
                 </button>
                 <button
                   onClick={() => setOpenModal(false)}
-                  className="text-white block mx-auto bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 active:scale-95"
+                  className="text-white block bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 active:scale-95"
                   type="button"
                 >
                   Cancelar
